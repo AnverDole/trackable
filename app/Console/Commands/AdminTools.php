@@ -110,6 +110,10 @@ class AdminTools extends Command
                 $user->lastname = $data->lastname;
                 $user->email = $data->email;
                 $user->role = User::$USER_ROLE_SUPER_ADMIN;
+                $user->city_id = 1;
+                $user->telephone = "N/A";
+                $user->address_line_1 = "N/A";
+                $user->address_line_2 = "N/A";
 
                 $password = $data->password;
                 $user->password = Hash::make($password);
