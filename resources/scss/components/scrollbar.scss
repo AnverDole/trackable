@@ -1,0 +1,19 @@
+@import "./../colors.scss";
+
+:root {
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background-color: $light-color-1;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: $dark-color-3;
+        border-radius: 10px;
+    }
+}

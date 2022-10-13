@@ -1,0 +1,7 @@
+.school {
+  transition: background-color 0.25s;
+  cursor: pointer;
+}
+.school:hover {
+  background-color: #f5f5f5 !important;
+}

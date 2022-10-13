@@ -1,0 +1,23 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+@import "./colors.scss";
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+@import "./components/scrollbar.scss";
+@import "../../node_modules/bootstrap/scss/pagination";
+
+body {
+    background-color: $light-color-1;
+}
+
+.card-hover {
+    transition: background-color 0.25s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: $light-color-1  !important;
+    }
+}

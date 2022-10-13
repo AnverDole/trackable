@@ -1,0 +1,20 @@
+$primary-color: #529BF0;
+$primary-alternative-color: #529BF0;
+
+$secondery-color: #242424;
+$secondery-alternative-color: #242424;
+
+$light-color-1: #f5f5f5;
+$light-color-2: #dedede;
+$dark-color-1: #1d1d1d;
+$dark-color-2: #676767;
+$dark-color-3: #b5b5b5;
+
+
+$pagination-active-bg: $primary-color;
+
+
+$theme-colors: (
+    "primary": $primary-color,
+    "secondery": $secondery-color
+);
