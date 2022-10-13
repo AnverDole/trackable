@@ -79,15 +79,8 @@ class StudentManagement extends Controller
 
             "tag_id" => "required|string|min:8|max:20|unique:students,tag_id",
             "local_index" => "required|string|max:20",
-            "school_id" => "required|exists:schools,id",
-
-            "phone_number_1" => ["required", "regex:/(0|\+*94)([0-9]{9})/i"],
-            "phone_number_2" => ["nullable", "regex:/(0|\+*94)([0-9]{9})/i"],
-
-
-
+            "school_id" => "required|integer|exists:schools,id",
             "parent_id" => "required|integer|exists:users,id",
-
         ], [], [
             "school_id" => "school",
             "parent_id" => "parent"
@@ -115,10 +108,7 @@ class StudentManagement extends Controller
                 "tag_id" => $data->tag_id,
                 "local_index" => $data->local_index,
                 "school_id" => $data->school_id,
-                "parent_id" => $data->parent_id,
-
-                "phone_number_1" => $data->phone_number_1,
-                "phone_number_2" => $data->phone_number_2
+                "parent_id" => $data->parent_id
             ]);
 
             DB::commit();
@@ -126,6 +116,7 @@ class StudentManagement extends Controller
             return redirect()->route('student-management.view', ['student' => $student->id])
                 ->with(["success-message" => "Successfully created the admin."]);
         } catch (Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()
                 ->withInput($request->all())
                 ->withErrors(["error-message" => "Failed create the student, please try again."]);
@@ -174,6 +165,7 @@ class StudentManagement extends Controller
             "tag_id" => "required|string|min:8|max:20|unique:students,tag_id," . $student->id,
             "local_index" => "required|string|max:20",
 
+            "school_id" => "required|integer|exists:schools,id",
             "parent_id" => "required|integer|exists:users,id",
             "is_active" => "required|integer|in:0,1",
         ], [], [
@@ -215,7 +207,6 @@ class StudentManagement extends Controller
             return redirect()->route('student-management.view', ['student' => $student->id])
                 ->with(["success-message" => "Successfully updated the student."]);
         } catch (Exception $e) {
-            dd($e->getMessage());
             DB::rollBack();
 
             return redirect()->back()

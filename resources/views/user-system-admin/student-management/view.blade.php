@@ -77,7 +77,7 @@
 
                         <div class="row mt-2">
                             <div class="col-12 col-md-6">
-                                <span class="fw-light">Parental Account</span>
+                                <span class="fw-light">Parent Account</span>
                                 <p class="m-0 p-0">{{ $student->Parent->email }}</p>
                                 <p class="m-0 p-0">{{ $student->Parent->telephone }}</p>
                             </div>

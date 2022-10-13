@@ -29,7 +29,6 @@
             <h4>New Student</h4>
             <p>All fields are necessary.</p>
 
-
             @error('error-message')
                 <div class="alert alert-danger" role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i> {{ $message }}
@@ -137,29 +136,6 @@
                         @enderror
                     </div>
 
-                    <label for="phone_number_1" class="mt-4 mb-2">Notifications</label>
-                    <div class="form-floating">
-                        <input type="text" class="form-control @error('phone_number_1') is-invalid @enderror"
-                            id="phone_number_1" name="phone_number_1" placeholder="Address line 3"
-                            value="{{ old('phone_number_1') }}">
-                        <label for="phone_number_1">Phone Number 1</label>
-                        @error('phone_number_1')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-floating mt-2">
-                        <input type="text" class="form-control @error('phone_number_2') is-invalid @enderror"
-                            id="phone_number_2" name="phone_number_2" placeholder="Address line 3"
-                            value="{{ old('phone_number_2') }}">
-                        <label for="phone_number_2">Phone Number 2 (Optional)</label>
-                        @error('phone_number_2')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
 
                     <label for="parent_email" class="mt-4 mb-2">Parent</label>
                     <div id="no-associated-parents"
