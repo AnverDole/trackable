@@ -49,8 +49,8 @@ class AdminTools extends Command
 
         while (true) {
             $this->output->writeln("\nMain menu");
-            $this->output->writeln("1) View all super admins");
-            $this->output->writeln("2) Create a super admin");
+            $this->output->writeln("2) View all super admins");
+            $this->output->writeln("1) Create a super admin");
             $choise = $this->output->ask("Choose one [1, 2]: ");
 
             if (!in_array($choise, ["1", "2"])) {
@@ -61,8 +61,10 @@ class AdminTools extends Command
             switch ($choise) {
                 case "1":
                     $this->createSuperAdmin();
+                    break 1;
                 case "2":
                     $this->viewAllSuperAdmins();
+                    break 1;
             }
         }
 
@@ -130,20 +132,12 @@ class AdminTools extends Command
         $this->output->writeln("\nAll Super Admins\n");
 
         while (true) {
-            $superAdmins = User::filter(User::$USER_ROLE_SUPER_ADMIN)->get();
+            $superAdmins = User::FilterRole(User::$USER_ROLE_SUPER_ADMIN)->get();
             foreach ($superAdmins as $admin) {
                 $this->output->writeln("ID:    {$admin->id}");
                 $this->output->writeln("Name:  {$admin->firstname} {$admin->firstname}");
                 $this->output->writeln("Email: {$admin->email} \n");
             }
-
-            $selectedId = $this->output->ask("\nChoose Account ID: ");
-            $selectedAdmin = $superAdmins->get($selectedId);
-            if ($selectedAdmin == null) {
-                $this->output->writeln("\nInvalid selection.");
-                continue;
-            }
-            break;
         }
     }
 }
