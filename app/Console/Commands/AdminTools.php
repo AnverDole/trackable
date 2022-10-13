@@ -121,7 +121,7 @@ class AdminTools extends Command
                 $this->output->writeln("Password: {$password}");
                 $this->output->writeln("");
             } catch (Exception $e) {
-                $this->output->writeln("Something is wrong! please try again.");
+                $this->output->writeln("Something is wrong! please try again ({$e->getMessage()}).");
             }
 
             break;
