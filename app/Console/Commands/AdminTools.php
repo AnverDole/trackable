@@ -49,8 +49,8 @@ class AdminTools extends Command
 
         while (true) {
             $this->output->writeln("\nMain menu");
-            $this->output->writeln("2) View all super admins");
             $this->output->writeln("1) Create a super admin");
+            $this->output->writeln("2) View all super admins");
             $choise = $this->output->ask("Choose one [1, 2]: ");
 
             if (!in_array($choise, ["1", "2"])) {
