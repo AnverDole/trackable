@@ -165,11 +165,9 @@ class StudentManagement extends Controller
             "tag_id" => "required|string|min:8|max:20|unique:students,tag_id," . $student->id,
             "local_index" => "required|string|max:20",
 
-            "school_id" => "required|integer|exists:schools,id",
             "parent_id" => "required|integer|exists:users,id",
             "is_active" => "required|integer|in:0,1",
         ], [], [
-            "school_id" => "school",
             "parent_id" => "parent"
         ]);
 

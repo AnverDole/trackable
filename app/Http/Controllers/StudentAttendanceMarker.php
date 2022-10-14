@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\School;
 use App\Models\StudentAttendance;
+use App\Notifications\StudentArrivelNotification;
+use App\Notifications\StudentDepartedNotification;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class StudentAttendanceMarker extends Controller
@@ -26,6 +30,7 @@ class StudentAttendanceMarker extends Controller
                 "errors" => $validator->errors()
             ]);
         }
+
 
         $data = (object)$validator->validated();
 
@@ -64,6 +69,12 @@ class StudentAttendanceMarker extends Controller
             "school_id" => $school->id,
             "direction" => $newDirection
         ]);
+
+        if ($newDirection = StudentAttendance::$DIRECTION_IN) {
+            Notification::sendNow($student->Parent, new StudentArrivelNotification($student, Carbon::now()));
+        } else {
+            Notification::sendNow($student->Parent, new StudentDepartedNotification($student, Carbon::now()));
+        }
 
         return response()->json([
             "success" => true

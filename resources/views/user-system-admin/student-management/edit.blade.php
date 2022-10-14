@@ -25,7 +25,6 @@
 @section('content-main')
     <main class="menu-content-body">
         @yield('student.management.navigation')
-
         <div class="bg-white shadow-lg w-100 rounded p-4">
             <h4>Edit Student #{{ $student->id }}</h4>
             <p>All fields are necessary.</p>
