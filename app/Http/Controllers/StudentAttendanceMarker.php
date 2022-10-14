@@ -70,7 +70,7 @@ class StudentAttendanceMarker extends Controller
             "direction" => $newDirection
         ]);
 
-        if ($newDirection = StudentAttendance::$DIRECTION_IN) {
+        if ($newDirection == StudentAttendance::$DIRECTION_IN) {
             Notification::sendNow($student->Parent, new StudentArrivelNotification($student, Carbon::now()));
         } else {
             Notification::sendNow($student->Parent, new StudentDepartedNotification($student, Carbon::now()));
