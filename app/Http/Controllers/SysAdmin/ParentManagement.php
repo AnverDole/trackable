@@ -35,7 +35,7 @@ class ParentManagement extends Controller
             "address_line_3" => "nullable|string|max:255",
             "city" => "required|integer|exists:cities_of_sri_lankas,id",
 
-            "phone_number" => ["required", "regex:/(0|\+*94)([0-9]{9})/i"]
+            "phone_number" => ["required", "regex:/(\+*94)([0-9]{9})/i"]
 
 
         ]);

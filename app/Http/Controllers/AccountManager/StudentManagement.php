@@ -104,8 +104,8 @@ class StudentManagement extends Controller
             "local_index" => "required|string|max:20",
             "school_id" => "required|exists:schools,id",
 
-            "phone_number_1" => ["required", "regex:/(0|\+*94)([0-9]{9})/i"],
-            "phone_number_2" => ["nullable", "regex:/(0|\+*94)([0-9]{9})/i"],
+            "phone_number_1" => ["required", "regex:/(\+*94)([0-9]{9})/i"],
+            "phone_number_2" => ["nullable", "regex:/(\+*94)([0-9]{9})/i"],
 
             "email" => "required|email|max:255"
         ], [], [
@@ -192,8 +192,8 @@ class StudentManagement extends Controller
             "tag_id" => "required|string|min:8|max:20|unique:students,tag_id," . $student->id,
             "local_index" => "required|string|max:20",
 
-            "phone_number_1" => ["required", "regex:/(0|\+*94)([0-9]{9})/i"],
-            "phone_number_2" => ["nullable", "regex:/(0|\+*94)([0-9]{9})/i"],
+            "phone_number_1" => ["required", "regex:/(\+*94)([0-9]{9})/i"],
+            "phone_number_2" => ["nullable", "regex:/(\+*94)([0-9]{9})/i"],
 
             "email" => "required|email|max:255",
             "is_active" => "required|boolean"

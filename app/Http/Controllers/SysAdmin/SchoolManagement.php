@@ -73,7 +73,7 @@ class SchoolManagement extends Controller
         $data  = (object)$request->validate([
             "name" => "required|string|max:255",
             "email" => "required|email|max:255|unique:schools,email",
-            "telephone" => ["required", "regex:/(0|\+*94)([0-9]{9})/i"],
+            "telephone" => ["required", "regex:/(\+*94)([0-9]{9})/i"],
             "address_line_1" => "required|string|max:255",
             "address_line_2" => "nullable|string|max:255",
             "address_line_3" => "nullable|string|max:255",
@@ -145,7 +145,7 @@ class SchoolManagement extends Controller
         $data  = (object)$request->validate([
             "name" => "required|string|max:255",
             "email" => "required|email|max:255|unique:schools,email," . $school->id,
-            "telephone" => ["required", "regex:/(0|\+*94)([0-9]{9})/i"],
+            "telephone" => ["required", "regex:/(\+*94)([0-9]{9})/i"],
             "address_line_1" => "required|string|max:255",
             "address_line_2" => "nullable|string|max:255",
             "address_line_3" => "nullable|string|max:255",

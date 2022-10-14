@@ -36,7 +36,7 @@ class ProfileManagement extends Controller
             "firstname" => "required|string|max:255",
             "lastname" => "required|string|max:255",
             "email" => "required|email|max:255|unique:users,email," . $user->id,
-            "telephone" => ["required", "regex:/(0|\+*94)([0-9]{9})/i"],
+            "telephone" => ["required", "regex:/(\+*94)([0-9]{9})/i"],
             "address_line_1" => "required|string|max:255",
             "address_line_2" => "nullable|string|max:255",
             "address_line_3" => "nullable|string|max:255",
