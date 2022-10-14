@@ -17,21 +17,27 @@
                         class="fa-solid fa-user-group"></i><span>Student Management</span></a>
             </li>
 
-            @hasRole('super-admin')
             <li>
-            <a href="{{ route('admin-management') }}" @hasCurrentRoute('admin-management', 'admin-management.new', 'admin-management.view', 'admin-management.edit') current="true" @else current="false" @endif><i class="fa-solid fa-user-tie"></i><span>Admin
-                        Management</span></a>
+                <a href="{{ route('parent-management') }}" @hasCurrentRoute('parent-management', 'parent-management.new', 'parent-management.view', 'parent-management.edit') current="true" @endif><i
+                        class="fa-solid fa-chalkboard-user"></i><span>Parent Management</span></a>
             </li>
-            @endif
 
-            <li>
-                <a href="{{ route('profile-management') }}" @hasCurrentRoute('profile-management') current="true" @endif><i
-                        class="fa-solid fa-user-gear"></i><span>Profile Management</span></a>
-            </li>
-            <li>
-                <a href="{{ route('sys.admin.dashboard') }}" data-bs-toggle="modal" data-bs-target="#logout-model"><i
-                        class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
-            </li>
-        </ul>
-    </nav>
-@endsection
+            @hasRole('super-admin')
+                <li>
+                <a href="{{ route('admin-management') }}" @hasCurrentRoute('admin-management', 'admin-management.new', 'admin-management.view', 'admin-management.edit') current="true" @else current="false"
+                        @endif><i class="fa-solid fa-user-tie"></i><span>Admin
+                            Management</span></a>
+                </li>
+                @endif
+
+                <li>
+                    <a href="{{ route('profile-management') }}" @hasCurrentRoute('profile-management') current="true" @endif><i
+                            class="fa-solid fa-user-gear"></i><span>Profile Management</span></a>
+                </li>
+                <li>
+                    <a href="{{ route('sys.admin.dashboard') }}" data-bs-toggle="modal" data-bs-target="#logout-model"><i
+                            class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+                </li>
+            </ul>
+        </nav>
+    @endsection

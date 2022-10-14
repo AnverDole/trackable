@@ -192,16 +192,21 @@ class SchoolManagement extends Controller
     public function addAdmin(School $school, Request $request)
     {
         $data = (object)$request->validate([
-            "admin_id" => "required|integer|exists:schools,id"
+            "admin_id" => "required|integer|exists:users,id"
         ]);
 
 
         $admin = User::findorfail($data->admin_id);
+
+        if ($admin->role !== User::$USER_ROLE_ACCOUNT_MANAGER) {
+            return redirect()->back()->withErrors(["error-message" => "Selected account manager is not valid."]);
+        }
+
         if ($school->AssociatedAccountManagers()->where("user_id", $admin->id)->count() < 1) {
             $school->AssociatedAccountManagers()->attach($admin->id);
-            return redirect()->back()->with(["success-message" => "Successfully associated the admin."]);
+            return redirect()->back()->with(["success-message" => "Successfully associated the account manager."]);
         } else {
-            return redirect()->back()->withErrors(["error-message" => "Selected admin is already associated with this admin account."]);
+            return redirect()->back()->withErrors(["error-message" => "Selected account manager is already associated with this school account."]);
         }
     }
     public function removeAdmin(School $school, Request $request)
@@ -215,7 +220,7 @@ class SchoolManagement extends Controller
 
         if ($school->AssociatedAccountManagers()->where("user_id", $admin->id)->count() > 0) {
 
-            $school->AssociatedAccountManagers()->deattach($admin->id);
+            $school->AssociatedAccountManagers()->detach($admin->id);
 
             $school->AssociatedAccountManagers()->where("user_id", $admin->id)->delete();
             return redirect()->back()->with(["success-message" => "Successfully removed the associated admin."]);

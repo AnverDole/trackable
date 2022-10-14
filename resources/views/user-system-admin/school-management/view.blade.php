@@ -33,6 +33,7 @@
 @endsection
 
 @section('content-main')
+
     <main class="menu-content-body">
         @yield('school.management.navigation')
 
@@ -76,7 +77,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <span class="fw-light">RFID Detectors (Mac Addresses)</span>
-                                <p>{{  $school->RFIDDetectors->pluck("mac_address")->join(", ") }}</p>
+                                <p>{{ $school->RFIDDetectors->pluck('mac_address')->join(', ') }}</p>
                             </div>
                         </div>
                     </div>
@@ -102,9 +103,9 @@
                         </div>
                         <div class="container">
                             @foreach ($school->AssociatedAccountManagers as $AssociatedAccountManager)
-                                <a href="{{ route('admin-management.view', ['admin' => $AssociatedAccountManager->id]) }}"
+                                <a @hasRole('super-admin') href="{{ route('admin-management.view', ['admin' => $AssociatedAccountManager->id]) }}"  @endhasRole
                                     target="_new"
-                                    class="bg-white text-dark text-decoration-none card-hover shadow row rounded p-2 school mt-3">
+                                    class="bg-white text-dark text-decoration-none @hasRole('super-admin') card-hover @endhasRole shadow row rounded p-2 school mt-3">
                                     <div class="col-12 mb-2 mb-md-0 col-md-1 d-flex flex-column">
                                         <small class="fw-lighter">ID</small>
                                         <span>{{ $AssociatedAccountManager->id }}</span>

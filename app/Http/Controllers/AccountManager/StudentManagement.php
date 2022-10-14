@@ -102,16 +102,18 @@ class StudentManagement extends Controller
 
             "tag_id" => "required|string|min:8|max:20|unique:students,tag_id",
             "local_index" => "required|string|max:20",
-            "school_id" => "required|exists:schools,id",
-
-            "phone_number_1" => ["required", "regex:/(\+*94)([0-9]{9})/i"],
-            "phone_number_2" => ["nullable", "regex:/(\+*94)([0-9]{9})/i"],
-
-            "email" => "required|email|max:255"
+            "school_id" => "required|integer|exists:schools,id",
+            "parent_id" => "required|integer|exists:users,id",
         ], [], [
-            "school_id" => "school"
+            "school_id" => "school",
+            "parent_id" => "parent"
         ]);
 
+        if (User::findorfail($data->parent_id)->role !== User::$USER_ROLE_PARENT) {
+            return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(["error-message" => "Given parent account reference is invalid."]);
+        }
 
         try {
             DB::beginTransaction();
@@ -127,12 +129,7 @@ class StudentManagement extends Controller
                 "tag_id" => $data->tag_id,
                 "local_index" => $data->local_index,
                 "school_id" => $data->school_id,
-
-                "phone_number_1" => $data->phone_number_1,
-                "phone_number_2" => $data->phone_number_2,
-
-                "email" => $data->email,
-                "password" => Hash::make(Str::random(10)),
+                "parent_id" => $data->parent_id
             ]);
 
 
@@ -192,19 +189,22 @@ class StudentManagement extends Controller
             "tag_id" => "required|string|min:8|max:20|unique:students,tag_id," . $student->id,
             "local_index" => "required|string|max:20",
 
-            "phone_number_1" => ["required", "regex:/(\+*94)([0-9]{9})/i"],
-            "phone_number_2" => ["nullable", "regex:/(\+*94)([0-9]{9})/i"],
-
-            "email" => "required|email|max:255",
-            "is_active" => "required|boolean"
+            "parent_id" => "required|integer|exists:users,id",
+            "is_active" => "required|integer|in:0,1",
         ], [], [
-            "school_id" => "school"
+            "parent_id" => "parent"
         ]);
+
+
+        if (User::findorfail($data->parent_id)->role !== User::$USER_ROLE_PARENT) {
+            return redirect()->back()
+                ->withInput($request->all())
+                ->withErrors(["error-message" => "Given parent account reference is invalid."]);
+        }
 
 
         try {
             DB::beginTransaction();
-
 
             $student->firstname = $data->firstname;
             $student->lastname = $data->lastname;
@@ -216,11 +216,9 @@ class StudentManagement extends Controller
             $student->tag_id = $data->tag_id;
             $student->local_index = $data->local_index;
 
-            $student->phone_number_1 = $data->phone_number_1;
-            $student->phone_number_2 = $data->phone_number_2;
 
-            $student->email = $data->email;
             $student->is_active = $data->is_active;
+            $student->parent_id = $data->parent_id;
 
             $student->save();
 

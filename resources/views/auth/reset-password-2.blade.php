@@ -6,32 +6,45 @@
         <div class="d-flex justify-content-center py-5 px-2">
             <img src="{{ asset('logo/logo.png') }}" alt="Logo">
         </div>
-        <div class=" shadow-lg  py-5 px-4 my-4 mx-2 w-100 rounded d-flex flex-column align-items-center" style="max-width:350px">
+        <div class="bg-white shadow-lg  py-5 px-4 my-4 mx-2 w-100 rounded d-flex flex-column align-items-center"
+            style="max-width:350px">
             <h2>Reset Account</h2>
-            <p class="text-black-50">Welcome back! Please enter your account details.</p>
+            <p class="text-black-50">Create a secure & strong password.</p>
 
-            <form class="w-100 mt-2">
+            <form class="w-100 mt-2" accept="{{ route('auth.forgot-password.change') }}" method="POST">
+                @csrf
+                <input type="hidden" name="token" value="{{ request()->get('token') }}">
                 <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control" id="email" aria-describedby="email"
-                        placeholder="Enter email">
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                        aria-describedby="email" placeholder="Email" value="{{ request()->get('email') }}" readonly required>
+                    @error('email')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group mt-3">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password">New Passwords</label>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="New Password" required>
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                <div class="d-flex justify-content-between py-4">
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="remember-me">
-                        <label class="form-check-label" for="remember-me">Remember Me</label>
-                    </div>
-                    <a href="javascript:void(0)">Forgot password</a>
+                <div class="form-group mt-3">
+                    <label for="password">Retype New Passwords</label>
+                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation"
+                        placeholder="Retype New Password" required>
+                    @error('password_confirmation')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Log In</button>
 
-                <div class="d-flex justify-content-center mt-4">
-                    <p class="text-black-50">Don’t have an account?&nbsp;<a href="javascript:void(0)">Sign Up</a></p>
-                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-4">Update Password</button>
             </form>
         </div>
         <div class="d-flex justify-content-between py-4">

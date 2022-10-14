@@ -29,7 +29,6 @@
             <p>All fields are necessary.</p>
 
 
-
             @error('error-message')
                 <div class="alert alert-danger" role="alert">
                     <i class="fa-solid fa-circle-exclamation"></i> {{ $message }}
@@ -67,7 +66,7 @@
                         <input type="tel" class="form-control @error('telephone') is-invalid @enderror" id="telephone"
                             name="telephone" placeholder="Type school's name"
                             value="{{ old('telephone') ?? $school->telephone }}" required>
-                        <label for="telephone">Telephone</label>
+                        <label for="telephone">Telephone (94xxxxxxxxx)</label>
                         @error('telephone')
                             <div class="invalid-feedback">
                                 {{ $message }}

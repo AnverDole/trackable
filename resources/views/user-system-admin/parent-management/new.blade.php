@@ -8,11 +8,10 @@
 
 @section('content-head')
     <div class="menu-content-head">
-        <h1><i class="fa-solid fa-user-group"></i>Student Management</h1>
+        <h1><i class="fa-solid fa-user-group"></i>Parent Management</h1>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('student-management') }}">Student Management</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0)">Parents</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('parent-management') }}">Parent Management</a></li>
                 <li class="breadcrumb-item"><a href="javascript:void(0)">New</a></li>
             </ol>
         </nav>

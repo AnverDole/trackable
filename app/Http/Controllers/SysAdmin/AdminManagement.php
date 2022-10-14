@@ -249,7 +249,7 @@ class AdminManagement extends Controller
         }
     }
 
-    public function getAdmins(Request $request)
+    public function getAccountManagers(Request $request)
     {
         $data = (object)$request->validate([
             "name" => "required_without_all:email|nullable|string|max:255",
@@ -263,7 +263,7 @@ class AdminManagement extends Controller
             $page = 1;
         }
 
-        $admins = User::query();
+        $admins = User::query()->FilterRole(User::$USER_ROLE_ACCOUNT_MANAGER);
 
         if (isset($data->name) && strlen($data->name) > 0) {
             $admins->whereRaw("concat(firstname,' ',lastname) like ? ",  ["%{$data->name}%"]);

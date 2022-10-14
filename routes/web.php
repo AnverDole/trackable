@@ -1,6 +1,8 @@
 <?php
 
+use App\Notifications\PasswordReset;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +29,8 @@ Route::middleware("guest")->group(function () {
     Route::get("/auth/forgot-password/verify", "Auth\ForgotPasswordController@index")->name("auth.forgot-password.verify");
     Route::post("/auth/forgot-password/verify", "Auth\ForgotPasswordController@verify")->middleware("throttle:10,1,auth.forgot-password.verify");
 
-    Route::get("/auth/forgot-password/change", "Auth\ForgotPasswordController@index")->name("auth.forgot-password.change");
-    Route::post("/auth/forgot-password", "Auth\LoginController@update")->name("auth.forgot-password.change")->middleware("throttle:10,1");
+    Route::get("/auth/forgot-password/change", "Auth\ForgotPasswordController@change")->name("auth.forgot-password.change");
+    Route::post("/auth/forgot-password/change", "Auth\ForgotPasswordController@update")->middleware("throttle:10,1");
 });
 
 Route::middleware("auth")->group(function () {
@@ -46,8 +48,9 @@ Route::middleware("auth.role:super-admin")->prefix("admin")->group(function () {
     Route::post("/admin-management/{admin}/associate-school", "SysAdmin\AdminManagement@addSchool")->name('admin-management.school.associate');
     Route::post("/admin-management/{admin}/dissociate-school", "SysAdmin\AdminManagement@removeSchool")->name('admin-management.school.dissociate');
 
-    Route::post("/admin-management/select-admin", "SysAdmin\AdminManagement@getAdmins")->name('admin-management.select-admin');
+    Route::post("/admin-management/select-admin", "SysAdmin\AdminManagement@getAccountManagers")->name('admin-management.select-admin');
 });
+
 Route::middleware("auth.role:super-admin,admin")->prefix("admin")->group(function () {
     Route::get("/dashboard", "SysAdmin\DashboardController@index")->name("sys.admin.dashboard");
 
@@ -81,11 +84,23 @@ Route::middleware("auth.role:super-admin,admin")->prefix("admin")->group(functio
 
     Route::get("/student-management/{student}/attendances", "SysAdmin\StudentManagement@attendances")->name("student-management.view.attendances");
 
-    Route::post("/student-management/parents", "SysAdmin\StudentManagement@parents")->name("student-management.parents");
     Route::get("/student-management/parents/new", "SysAdmin\ParentManagement@new")->name("student-management.parents.new");
     Route::post("/student-management/parents/new", "SysAdmin\ParentManagement@create");
 
     Route::post("/student-management/{student}/associate-school", "SysAdmin\StudentManagement@addSchool")->name('student-management.school.associate');
+
+
+
+
+    Route::get("/parent-management", "SysAdmin\ParentManagement@index")->name("parent-management");
+    Route::get("/parent-management/new", "SysAdmin\ParentManagement@new")->name("parent-management.new");
+    Route::get("/parent-management/select-parents", "SysAdmin\ParentManagement@getParents")->name("parent-management.select-parents");
+    Route::get("/parent-management/{parent}", "SysAdmin\ParentManagement@view")->name("parent-management.view");
+    Route::get("/parent-management/{parent}/edit", "SysAdmin\ParentManagement@edit")->name("parent-management.edit");
+    Route::post("/parent-management/{parent}/edit", "SysAdmin\ParentManagement@update");
+
+
+
 
     Route::get("/profile-management", "SysAdmin\ProfileManagement@index")->name("profile-management");
     Route::post("/profile-management/edit", "SysAdmin\ProfileManagement@updateProfile")->name("profile-management.edit");
@@ -101,6 +116,8 @@ Route::middleware("auth.role:account-manager")->prefix("account-manager")->group
     Route::get("/school-management/{school}/edit", "AccountManager\SchoolManagement@edit")->name("account-manager.school-management.edit");
     Route::post("/school-management/{school}/edit", "AccountManager\SchoolManagement@update");
 
+
+    Route::post("/school-management/select-school", "SysAdmin\SchoolManagement@getSchools")->name('account-manager.school-management.select-school');
 
     Route::get("/school-management/schools/{school}/students", "AccountManager\SchoolManagement@students")->name("account-manager.school-management.students");
     Route::get("/student-management/schools/{school}/attendances", "AccountManager\SchoolManagement@attendances")->name("account-manager.school-management.view.attendances");
@@ -123,6 +140,16 @@ Route::middleware("auth.role:account-manager")->prefix("account-manager")->group
 
 
     Route::get("/admin-management/{admin}", "AccountManager\AdminManagement@view")->name("account-manager.admin-management.view");
+
+
+
+    Route::get("/parent-management", "AccountManager\ParentManagement@index")->name("account-manager.parent-management");
+    Route::post("/parent-management/select-parents", "AccountManager\ParentManagement@getParents")->name("account-manager.select-parents");
+    Route::get("/parent-management/new", "AccountManager\ParentManagement@new")->name("account-manager.parent-management.new");
+    Route::post("/parent-management/new", "AccountManager\ParentManagement@create")->name("account-manager.parent-management.new");
+    Route::get("/parent-management/{parent}", "AccountManager\ParentManagement@view")->name("account-manager.parent-management.view");
+    Route::get("/parent-management/{parent}/edit", "AccountManager\ParentManagement@edit")->name("account-manager.parent-management.edit");
+    Route::post("/parent-management/{parent}/edit", "AccountManager\ParentManagement@update");
 });
 
 Route::middleware("auth.role:user-parent")->prefix("parent")->group(function () {
@@ -133,4 +160,11 @@ Route::middleware("auth.role:user-parent")->prefix("parent")->group(function () 
     Route::post("/profile-management/edit", "Parent\ProfileManagement@updateProfile")->name("parent.profile-management.edit");
 
     Route::post("/profile-management/update-password", "Parent\ProfileManagement@updatePassword")->name("parent.profile-management.update-password");
+
+
+    Route::get("/parent-management", "Parent\ParentManagement@index")->name("parent.parent-management");
+    Route::get("/parent-management/new", "Parent\ParentManagement@new")->name("parent.parent-management.new");
+    Route::get("/parent-management/{parent}", "Parent\ParentManagement@view")->name("parent.parent-management.view");
+    Route::get("/parent-management/{parent}/edit", "Parent\ParentManagement@edit")->name("parent.parent-management.edit");
+    Route::post("/parent-management/{parent}/edit", "Parent\ParentManagement@update");
 });

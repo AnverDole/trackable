@@ -17,6 +17,10 @@
                 <a href="{{ route('account-manager.student-management') }}" @hasCurrentRoute('account-manager.student-management', 'account-manager.student-management.new', 'account-manager.student-management.view', 'account-manager.student-management.edit', 'account-manager.student-management.view.attendances') current="true" @endif><i class="fa-solid fa-user-group"></i><span>Students</span></a>
             </li>
             <li>
+                <a href="{{ route('account-manager.parent-management') }}" @hasCurrentRoute('account-manager.parent-management', 'account-manager.parent-management.new', 'account-manager.parent-management.view', 'account-manager.parent-management.edit') current="true" @endif><i
+                        class="fa-solid fa-chalkboard-user"></i><span>Parents</span></a>
+            </li>
+            <li>
                 <a href="{{ route('account-manager.profile-management') }}" @hasCurrentRoute('account-manager.profile-management') current="true" @endif><i class="fa-solid fa-user-gear"></i><span>Profile Management</span></a>
             </li>
             <li>

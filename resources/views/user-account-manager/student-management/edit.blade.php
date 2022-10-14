@@ -135,40 +135,51 @@
                         @enderror
                     </div>
 
-                    <label for="phone_number_1" class="mt-4 mb-2">Notifications</label>
-                    <div class="form-floating">
-                        <input type="text" class="form-control @error('phone_number_1') is-invalid @enderror"
-                            id="phone_number_1" name="phone_number_1" placeholder="Address line 3"
-                            value="{{ old('phone_number_1') ?? $student->phone_number_1 }}">
-                        <label for="phone_number_1">Phone Number 1</label>
-                        @error('phone_number_1')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-floating mt-2">
-                        <input type="text" class="form-control @error('phone_number_2') is-invalid @enderror"
-                            id="phone_number_2" name="phone_number_2" placeholder="Address line 3"
-                            value="{{ old('phone_number_2') ?? $student->phone_number_2 }}">
-                        <label for="phone_number_2">Phone Number 2 (Optional)</label>
-                        @error('phone_number_2')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
 
-                    <label for="email" class="mt-4 mb-2">Parental access</label>
-                    <div class="form-floating">
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                            name="email" placeholder="Email" value="{{ old('email') ?? $student->email }}">
-                        <label for="email">Email Address</label>
-                        @error('email')
-                            <div class="invalid-feedback">
+                    <label for="parent_email" class="mt-4 mb-2">Parent Account</label>
+                    <div id="no-associated-parents" class="associated-parents container m-0 d-none" style="max-width:320px">
+                        <div class="row">
+                            <div
+                                class="border rounded px-3 py-2 d-flex justify-content-between align-items-center @error('parent_id') border-danger @enderror">
+                                <div class="d-flex flex-column">
+                                    <span>No parent selected</span>
+                                </div>
+                                <div class="ml-4">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#select-parent"><i class="fas fa-plus-square"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        @error('parent_id')
+                            <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
                         @enderror
+                    </div>
+                    <div id="associated-parents" class="associated-parents container m-0" style="max-width:320px">
+
+                        <div class="row">
+                            <div
+                                class="border rounded px-3 py-2 d-flex justify-content-between align-items-center @error('parent_id') border-danger @enderror">
+                                <input type="hidden" name="parent_id"
+                                    value="{{ old('parent_id') ?? $student->Parent->id }}">
+
+                                <div class="d-flex flex-column">
+                                    <span>{{ old('parent_name') ?? $student->Parent->firstname . ' ' . $student->Parent->lastname }}</span>
+                                    <span class="fw-lighter">{{ old('parent_email') ?? $student->Parent->email }}</span>
+                                </div>
+                                <div class="ml-4">
+                                    <button type="button" class="btn btn-danger remove-parent"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        @error('parent_id')
+                            <div class="invalid-feedback d-block">
+                                {{ $message }}
+                            </div>
+                        @enderror
+
                     </div>
 
                     <div class="form-floating mt-4">

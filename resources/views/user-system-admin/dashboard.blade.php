@@ -26,7 +26,17 @@
                         <h5 class="d-flex">Total Attendence</h5>
                         <div class="d-flex align-items-center">
                             <i class="fa-solid fa-circle-info fa-xl text-primary"></i>
-                            <span class="fs-2 ms-2">{{$data->TotalAttendance}}</span>
+                            <span class="fs-2 ms-2">{{$data->totalAttendance}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="shadow bg-white rounded p-4 mb-4">
+                        <h5 class="d-flex">Absentees</h5>
+                        <div class="d-flex align-items-center">
+                            <i class="fa-solid fa-circle-info fa-xl text-primary"></i>
+                            <span class="fs-2 ms-2">{{$data->absentees}}</span>
                         </div>
                     </div>
                 </div>
@@ -35,16 +45,7 @@
                         <h5 class="d-flex">Late Students</h5>
                         <div class="d-flex align-items-center">
                             <i class="fa-solid fa-circle-info fa-xl text-primary"></i>
-                            <span class="fs-2 ms-2">1500</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="shadow bg-white rounded p-4 mb-4">
-                        <h5 class="d-flex">Absence</h5>
-                        <div class="d-flex align-items-center">
-                            <i class="fa-solid fa-circle-info fa-xl text-primary"></i>
-                            <span class="fs-2 ms-2">1500</span>
+                            <span class="fs-2 ms-2">{{$data->lateStudents}}</span>
                         </div>
                     </div>
                 </div>

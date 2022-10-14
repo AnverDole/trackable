@@ -94,7 +94,7 @@
         function searchParents() {
             searchParentResultsContainer.html("");
 
-            axios.post("{{ route('student-management.parents') }}", {
+            axios.post("{{ route('parent-management.select-parents') }}", {
                     email: parentEmail.val(),
                     phone_number: parentPhoneNumber.val()
                 })

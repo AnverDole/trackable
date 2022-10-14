@@ -35,7 +35,7 @@
                 </div>
             @enderror
 
-            <form action="{{ route('parent.profile-management.edit') }}" method="post">
+            <form action="{{ route('profile-management.edit') }}" method="post">
                 @csrf
 
                 <div class="mt-4">
@@ -78,7 +78,7 @@
                         <input type="tel" class="form-control @error('telephone', 'updateProfile') is-invalid @enderror"
                             id="telephone" name="telephone" placeholder="Telephone"
                             value="{{ old('telephone') ?? $user->telephone }}" required>
-                        <label for="telephone">Telephone</label>
+                        <label for="telephone">Telephone (94xxxxxxxxx)</label>
                         @error('telephone', 'updateProfile')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -163,7 +163,7 @@
                 </div>
             @enderror
 
-            <form action="{{ route('parent.profile-management.update-password') }}" method="post">
+            <form action="{{ route('profile-management.update-password') }}" method="post">
                 @csrf
                 <div class="mt-4">
                     <div class="form-floating">

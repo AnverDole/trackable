@@ -42,7 +42,17 @@ class StudentAttendance extends Model
         return $this->direction == 0 ? "In" : "Out";
     }
 
-    public function scopeToday($query){
+    public function scopeIn($query)
+    {
+        return $query->where("direction", self::$DIRECTION_IN);
+    }
+    public function scopeLate($query)
+    {
+        return $query->whereTime('created_at', '>', '07:00:00');
+    }
+
+    public function scopeToday($query)
+    {
         return $query->whereDate("created_at", date("Y-m-d"));
     }
 

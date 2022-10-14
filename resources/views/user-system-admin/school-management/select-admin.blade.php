@@ -4,7 +4,7 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="select-adminLabel">Select Admin Account</h5>
+                    <h5 class="modal-title" id="select-adminLabel">Select Account Manager</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -36,8 +36,8 @@
                         <div id="search-not-initiated" class="w-100 py-4 my-4 px-2 d-flex flex-column align-items-center">
                             <img src="{{ asset('images/ilustrations/starry-window.svg') }}" alt="No results"
                                 style="max-width: 80px; width:100%">
-                            <h3 class="mt-4">Search Admins</h3>
-                            <p>Enter name or email to find the admin...</p>
+                            <h3 class="mt-4">Search Account Managers</h3>
+                            <p>Enter name or email to find the account manager...</p>
 
                         </div>
                         <div id="search-no-results"
@@ -45,7 +45,7 @@
                             <img src="{{ asset('images/ilustrations/starry-window.svg') }}" alt="No results"
                                 style="max-width: 80px; width:100%">
                             <h3 class="mt-4">Ops...</h3>
-                            <p>No admin accounts were found in your search.</p>
+                            <p>No account managers were found in your search.</p>
                         </div>
                         <div id="search-results" class="container d-none">
                         </div>

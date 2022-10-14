@@ -75,18 +75,15 @@
                         </div>
 
 
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-12 col-md-6">
-                                <span class="fw-light">Parental Account</span>
-                                <p>{{ $student->email }}</p>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <span class="fw-light">Parental Account & Notifications</span>
-                                <p class="m-0">{{ join(', ', $notifiablePhoneNumbers) }}</p>
+                                <span class="fw-light">Parent Account</span>
+                                <p class="m-0 p-0">{{ $student->Parent->email }}</p>
+                                <p class="m-0 p-0">{{ $student->Parent->telephone }}</p>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mt-2">
                             <div class="col-12 col-md-6">
                                 <span class="fw-light">RFID Tag ID</span>
                                 <p>{{ $student->tag_id }}</p>
@@ -108,13 +105,13 @@
                             class="btn btn-primary">View Attendance</a>
                     </div>
                 </div>
-
                 <div class="mt-4 p-0 ">
                     <div class="d-flex bg-white shadow-lg rounded justify-content-between align-items-center px-4 py-3">
                         <h5 class="m-0">Associated School</h5>
                     </div>
                     <div class="container">
-                        <a href="{{ route('account-manager.school-management.view', ['school' => $student->School->id]) }}" target="_new"
+                        <a href="{{ route('account-manager.school-management.view', ['school' => $student->School->id]) }}"
+                            target="_new"
                             class="bg-white text-dark text-decoration-none card-hover shadow row rounded p-2 school mt-3 align-items-center">
                             <div class="col-12 mb-2 mb-md-0 col-md-1 d-flex flex-column">
                                 <small class="fw-lighter">ID</small>
@@ -146,7 +143,8 @@
         <div class="modal-dialog">
 
             <div class="modal-content">
-                <form action="{{ route('account-manager.student-management.school.associate', ['student' => $student->id]) }}"
+                <form
+                    action="{{ route('account-manager.student-management.school.associate', ['student' => $student->id]) }}"
                     method="post">
                     @csrf
                     <input type="hidden" name="school_id">
@@ -161,8 +159,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-target="#select-school"
-                            data-bs-toggle="modal" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-light" data-bs-target="#select-school" data-bs-toggle="modal"
+                            data-bs-dismiss="modal">Cancel</button>
                         <button class="btn btn-primary">Yes</button>
                     </div>
                 </form>

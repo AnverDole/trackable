@@ -213,33 +213,7 @@ class StudentManagement extends Controller
         }
     }
 
-    public function parents(Request $request)
-    {
 
-        $data = (object)$request->validate([
-            "email" => "required_without:phone_number|nullable|email",
-            "phone_number" => "required_without:email|nullable|string",
-        ]);
-
-        $parents = User::FilterRole(User::$USER_ROLE_PARENT);
-
-        if (isset($data->email)) {
-            $parents->where("email", $data->email);
-        }
-        if (isset($data->phone_number)) {
-            $parents->where("telephone", $data->phone_number);
-        }
-
-        $parents = $parents->orderBy("id", "desc")->limit(10)->get();
-
-        $parents->map(function ($parent) {
-            $parent->city = $parent->City;
-            $parent->city->province = $parent->city->Province;
-            return $parent;
-        });
-
-        return response()->json($parents);
-    }
 
     public function attendances(Student $student, Request $request)
     {

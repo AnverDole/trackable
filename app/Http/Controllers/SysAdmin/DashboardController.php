@@ -14,8 +14,12 @@ class DashboardController extends Controller
     {
         $data = (object)[];
 
-        $data->TotalAttendance = StudentAttendance::query()->Today()->count();
-        $data->lateStudents = StudentAttendance::query()->Today()->count();
+        $data->totalAttendance = StudentAttendance::query()->Today()->In()->groupBy("student_id")->count();
+
+        $data->absentees = Student::query()->Active()->count() - $data->totalAttendance;
+
+
+        $data->lateStudents = StudentAttendance::query()->Today()->In()->groupBy("student_id")->Late()->count();
 
         $data->schools = School::query()->count();
         $data->students = Student::query()->Active()->count();

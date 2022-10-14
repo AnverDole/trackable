@@ -1,6 +1,7 @@
 @extends('layouts.left-menu-page')
 @include('menues.account-manager-left-menu')
 @include('user-account-manager.student-management.select-school')
+@include('user-account-manager.student-management.select-parent')
 @include('user-account-manager.student-management.navigation')
 
 
@@ -9,15 +10,14 @@
 @endsection
 
 @section('content-head')
-    <div class="menu-content-head">
-        <h1><i class="fa-solid fa-user-group"></i>Students</h1>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('account-manager.student-management') }}">Students</a></li>
-                <li class="breadcrumb-item"><a href="javascript:void(0)">New</a></li>
-            </ol>
-        </nav>
-    </div>
+<div class="menu-content-head">
+    <h1><i class="fa-solid fa-user-group"></i>Students</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('account-manager.student-management') }}">Students</a></li>
+        </ol>
+    </nav>
+</div>
 @endsection
 
 @section('content-main')
@@ -27,7 +27,6 @@
         <div class="bg-white shadow-lg w-100 rounded p-4">
             <h4>New Student</h4>
             <p>All fields are necessary.</p>
-
 
             @error('error-message')
                 <div class="alert alert-danger" role="alert">
@@ -136,41 +135,60 @@
                         @enderror
                     </div>
 
-                    <label for="phone_number_1" class="mt-4 mb-2">Notifications</label>
-                    <div class="form-floating">
-                        <input type="text" class="form-control @error('phone_number_1') is-invalid @enderror"
-                            id="phone_number_1" name="phone_number_1" placeholder="Address line 3"
-                            value="{{ old('phone_number_1') }}">
-                        <label for="phone_number_1">Phone Number 1</label>
-                        @error('phone_number_1')
-                            <div class="invalid-feedback">
+
+                    <label for="parent_email" class="mt-4 mb-2">Parent</label>
+                    <div id="no-associated-parents"
+                        class="associated-parents container m-0 @if (old('parent_id') != null) d-none @endif "
+                        style="max-width:320px">
+                        <div class="row">
+                            <div
+                                class="border rounded px-3 py-2 d-flex justify-content-between align-items-center @error('parent_id') border-danger @enderror">
+                                <div class="d-flex flex-column">
+                                    <span>No parent selected</span>
+                                </div>
+                                <div class="ml-4">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#select-parent"><i class="fas fa-plus-square"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        @error('parent_id')
+                            <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
                         @enderror
+
                     </div>
-                    <div class="form-floating mt-2">
-                        <input type="text" class="form-control @error('phone_number_2') is-invalid @enderror"
-                            id="phone_number_2" name="phone_number_2" placeholder="Address line 3"
-                            value="{{ old('phone_number_2') }}">
-                        <label for="phone_number_2">Phone Number 2 (Optional)</label>
-                        @error('phone_number_2')
-                            <div class="invalid-feedback">
+                    <div id="associated-parents"
+                        class="associated-parents container m-0 @if (old('parent_id') == null) d-none @endif"
+                        style="max-width:320px">
+
+                        @if (old('parent_id') != null)
+                            <div class="row">
+                                <div
+                                    class="border rounded px-3 py-2 d-flex justify-content-between align-items-center @error('parent_id') border-danger @enderror">
+                                    <input type="hidden" name="parent_id" value="{{ old('parent_id') }}">
+
+                                    <div class="d-flex flex-column">
+                                        <span>{{ old('parent_name') }}</span>
+                                        <span class="fw-lighter">{{ old('parent_email') }}</span>
+                                    </div>
+                                    <div class="ml-4">
+                                        <button type="button" class="btn btn-danger remove-parent"><i
+                                                class="fa-solid fa-trash-can"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @error('parent_id')
+                            <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
                         @enderror
+
                     </div>
 
-                    <label for="email" class="mt-4 mb-2">Parental access</label>
-                    <div class="form-floating">
-                        <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                            name="email" placeholder="Email" value="{{ old('email') }}">
-                        <label for="email">Email Address</label>
-                        @error('email')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+
 
 
                     <div class="d-flex justify-content-between align-items-center" style="max-width:320px">
@@ -181,7 +199,7 @@
                         style="max-width:320px">
                         <div class="row">
                             <div
-                                class="border rounded p-3 d-flex justify-content-between align-items-center @error('school_id') border-danger @enderror">
+                                class="border rounded px-3 py-2 d-flex justify-content-between align-items-center @error('school_id') border-danger @enderror">
                                 <div class="d-flex flex-column">
                                     <span>No school selected</span>
                                 </div>
@@ -198,8 +216,6 @@
                         @enderror
 
                     </div>
-
-
                     <div id="associated-schools"
                         class="associated-schools container m-0 @if (old('school_id') == null) d-none @endif"
                         style="max-width:320px">
@@ -207,7 +223,7 @@
                         @if (old('school_id') != null)
                             <div class="row">
                                 <div
-                                    class="border rounded p-3 d-flex justify-content-between align-items-center @error('school_id') border-danger @enderror">
+                                    class="border rounded px-3 py-2 d-flex justify-content-between align-items-center @error('school_id') border-danger @enderror">
                                     <input type="hidden" name="school_id" value="{{ old('school_id') }}">
                                     <input type="hidden" name="school_province" value="{{ old('school_province') }}">
                                     <input type="hidden" name="school_city" value="{{ old('school_city') }}">
@@ -246,6 +262,7 @@
 
     </main>
 
+    @yield('select-parent-model')
     @yield('select-school-model')
 @endsection
 
@@ -253,6 +270,9 @@
     <script>
         let noAssociatedSchoolsContainer = $("#no-associated-schools");
         let associatedSchoolsContainer = $("#associated-schools");
+
+        let noAssociatedParentsContainer = $("#no-associated-parents");
+        let associatedParentsContainer = $("#associated-parents");
 
         $("#show-password").on("change", function() {
             if ($(this).prop("checked")) {
@@ -281,6 +301,26 @@
                         </div>`;
         }
 
+        function genarateParentHtml(data) {
+            return `<div class="row">
+                        <div
+                            class="border rounded px-3 py-2 d-flex justify-content-between align-items-center">
+                            <input type="hidden" name="parent_id" value="${data.id}">
+                            <input type="hidden" name="parent_name" value="${data.name}">
+                            <input type="hidden" name="parent_email" value="${data.email}">
+
+                            <div class="d-flex flex-column">
+                                <span>${data.name}</span>
+                                <span class="fw-lighter">${data.email}</span>
+                            </div>
+                            <div class="ml-4">
+                                <button type="button" class="btn btn-danger remove-parent"><i
+                                        class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+        }
+
         $(document).on("click", "#associated-schools .remove-school", function() {
             let school = $(this).parent().parent().parent();
             school.remove();
@@ -288,12 +328,27 @@
             noAssociatedSchoolsContainer.removeClass("d-none");
             associatedSchoolsContainer.addClass("d-none");
         });
+        $(document).on("click", "#associated-parents .remove-parent", function() {
+            let parent = $(this).parent().parent().parent();
+            parent.remove();
+
+            noAssociatedParentsContainer.removeClass("d-none");
+            associatedParentsContainer.addClass("d-none");
+        });
         registerSchoolSelectedEventObserver(function(data) {
             associatedSchoolsContainer.html("");
             associatedSchoolsContainer.append(genarateSchoolHtml(data));
 
             noAssociatedSchoolsContainer.addClass("d-none");
             associatedSchoolsContainer.removeClass("d-none");
+        });
+
+        registerParentSelectedEventObserver(function(data) {
+            associatedParentsContainer.html("");
+            associatedParentsContainer.append(genarateParentHtml(data));
+
+            noAssociatedParentsContainer.addClass("d-none");
+            associatedParentsContainer.removeClass("d-none");
         });
     </script>
 @endpush

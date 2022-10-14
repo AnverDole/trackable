@@ -2,7 +2,6 @@
 @include('menues.system-admin-left-menu')
 
 @include('user-system-admin.student-management.select-parent')
-@include('user-system-admin.student-management.navigation')
 
 
 @section('left-menu')
@@ -24,7 +23,6 @@
 
 @section('content-main')
     <main class="menu-content-body">
-        @yield('student.management.navigation')
         <div class="bg-white shadow-lg w-100 rounded p-4">
             <h4>Edit Student #{{ $student->id }}</h4>
             <p>All fields are necessary.</p>
@@ -137,7 +135,21 @@
                             </div>
                         @enderror
                     </div>
+                    <div class="form-floating mt-4">
+                        <select class="form-select @error('is_active') is-invalid @enderror" id="is_active"
+                            name="is_active" aria-label="Is Active" required>
+                            <option selected disabled value="-1">Choose one</option>
+                            <option value="0" @if ((old('is_active') ?? $student->is_active) == 0) selected @endif>Deactivated</option>
+                            <option value="1" @if ((old('is_active') ?? $student->is_active) == 1) selected @endif>Activated</option>
+                        </select>
 
+                        <label for="is_active">Account Status</label>
+                        @error('is_active')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
 
                     <label for="parent_email" class="mt-4 mb-2">Parent Account</label>
                     <div id="no-associated-parents" class="associated-parents container m-0 d-none" style="max-width:320px">
@@ -185,21 +197,7 @@
 
                     </div>
 
-                    <div class="form-floating mt-4">
-                        <select class="form-select @error('is_active') is-invalid @enderror" id="is_active"
-                            name="is_active" aria-label="Is Active" required>
-                            <option selected disabled value="-1">Choose one</option>
-                            <option value="0" @if ((old('is_active') ?? $student->is_active) == 0) selected @endif>Deactivated</option>
-                            <option value="1" @if ((old('is_active') ?? $student->is_active) == 1) selected @endif>Activated</option>
-                        </select>
 
-                        <label for="is_active">Account Status</label>
-                        @error('is_active')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
                 </div>
 
 

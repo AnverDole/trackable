@@ -18,6 +18,13 @@
                 </div>
             @endif
 
+            @error('error-message')
+                <div class="alert alert-success d-flex align-items-baseline">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <p class="ms-2 mb-0">{{ $message }}</p>
+                </div>
+            @enderror
+
             <form action="{{ route('auth.forgot-password.verify') }}" method="POST" class="w-100 mt-2">
                 @csrf
                 <div class="form-group">
