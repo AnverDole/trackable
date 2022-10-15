@@ -94,7 +94,7 @@ Route::middleware("auth.role:super-admin,admin")->prefix("admin")->group(functio
 
     Route::get("/parent-management", "SysAdmin\ParentManagement@index")->name("parent-management");
     Route::get("/parent-management/new", "SysAdmin\ParentManagement@new")->name("parent-management.new");
-    Route::get("/parent-management/select-parents", "SysAdmin\ParentManagement@getParents")->name("parent-management.select-parents");
+    Route::post("/parent-management/select-parents", "SysAdmin\ParentManagement@getParents")->name("parent-management.select-parents");
     Route::get("/parent-management/{parent}", "SysAdmin\ParentManagement@view")->name("parent-management.view");
     Route::get("/parent-management/{parent}/edit", "SysAdmin\ParentManagement@edit")->name("parent-management.edit");
     Route::post("/parent-management/{parent}/edit", "SysAdmin\ParentManagement@update");
