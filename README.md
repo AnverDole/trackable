@@ -1,6 +1,6 @@
 # Trackable - Student Attendance & Notification Management System
 
-## This is a system that facilitates attendance management and notification generation for schools in Sri Lanka. The main purpose of this application is to send a notification to the parents when the student has arrived at the school or leaves from the school.
+This is a system that facilitates attendance management and notification generation for schools in Sri Lanka. The main purpose of this application is to send a notification to the parents when the student has arrived at the school or leaves from the school.
 
 ### Deploy to the developer machine
 
